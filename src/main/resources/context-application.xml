@@ -55,7 +55,7 @@
             <bean id="publicWebServiceProxy" class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
                 <property name="serviceInterface" value="test.remote.api.ws.PublicWebService"/>
                 <property name="wsdlDocumentUrl" value="http://localhost:8081/PublicWS?WSDL"/>
-                <property name="namespaceUri" value="http://remote.test/"/>
+                <property name="namespaceUri" value="http://ws.remote.test/"/>
                 <property name="serviceName" value="PublicWS"/>
                 <property name="portName" value="PublicWebServiceEndpointPort"/>
                 <property name="lookupServiceOnStartup" value="false"/>
