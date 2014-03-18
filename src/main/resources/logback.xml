@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <!--<logger name="org.apache" level="WARN"/>-->
+    <!--<logger name="org.hibernate" level="WARN"/>-->
+    <!--<logger name="org.springframework" level="WARN"/>-->
+    <logger name="org.quartz" level="WARN"/>
+    <logger name="net.sf.ehcache" level="WARN"/>
+    <logger name="net.sf.jasperreports" level="WARN"/>
+
+    <insertFromJNDI env-entry-name="java:comp/env/appName" as="appName" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{32} - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${catalina.base}/logs/${appName}.log</File>
+        <layout>
+            <Pattern>
+                %-26(%d{HH:mm:ss,SSS} [%thread]) %-5level %logger{32} - %msg%n
+            </Pattern>
+        </layout>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>
+                logFile.%d{yyyy-MM-dd_HH-mm}.log
+            </FileNamePattern>
+            <maxHistory>3</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <jmxConfigurator />
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>
