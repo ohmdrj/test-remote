@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:annotation-config/>
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+
+    <bean id="appControler" class="test.remote.AppServer"/>
+
+    <bean name="publicFactory" class="test.remote.api.PublicFactory"/>
+
+    <bean name="publicService" class="test.remote.PublicServiceImpl"/>
+
+    <!--== INVOKER Server ==-->
+    <!--<bean name="publicExporter" class="org.springframework.remoting.httpinvoker.SimpleHttpInvokerServiceExporter">
+        <property name="service" ref="publicService"/>
+        <property name="serviceInterface" value="test.remote.api.PublicService"/>
+    </bean>
+    <bean id="remotingServer" class="org.springframework.remoting.support.SimpleHttpServerFactoryBean">
+        <property name="contexts">
+            <util:map>
+                <entry key="/PublicService" value-ref="publicExporter"/>
+            </util:map>
+        </property>
+        <property name="port" value="8082"/>
+    </bean>-->
+
+    <!--== APACXF Server ==-->
+
+
+
+    <!--== JAXWS Server ==-->
+    <bean class="org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter">
+        <property name="baseAddress" value="http://localhost:8081/"/>
+    </bean>
+    <bean id="publicWebService" class="test.remote.PublicWebServiceEndpoint"/>
+
+
+</beans>

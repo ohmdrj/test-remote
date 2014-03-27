@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:annotation-config/>
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+
+    <bean id="appControler" class="test.remote.AppControler">
+    </bean>
+
+    <!--== INVOKER Client ==-->
+    <bean id="publicInvokerClient" autowire="byName" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+        <!--<property name="serviceUrl" value="http://localhost:8082/PublicService"/>-->
+        <property name="serviceUrl" value="http://localhost:8080/server/invoker/PublicService"/>
+        <property name="serviceInterface" value="test.remote.api.PublicService"/>
+    </bean>
+    <bean id="publicJaxwsClient" autowire="byName" class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
+        <property name="serviceInterface" value="test.remote.api.PublicService"/>
+        <property name="wsdlDocumentUrl" value="http://localhost:8081/Public?WSDL"/>
+        <property name="namespaceUri" value="http://remote.test/"/>
+        <property name="serviceName" value="Public"/>
+        <property name="portName" value="PublicServiceImplPort"/>
+        <property name="lookupServiceOnStartup" value="false"/>
+        <!--<property name="webServiceFeatures">
+            <array>
+                <bean class="com.sun.xml.internal.ws.api.fastinfoset.FastInfosetFeature"/>
+            </array>
+        </property>-->
+    </bean>
+
+    <!--== JAXWS Client ==-->
+    <bean id="publicWebServiceClient" class="test.remote.PublicWebClient">
+        <property name="publicWebService">
+            <bean id="publicWebServiceProxy" class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
+                <property name="serviceInterface" value="test.remote.api.ws.PublicWebService"/>
+                <property name="wsdlDocumentUrl" value="http://localhost:8081/PublicWS?WSDL"/>
+                <property name="namespaceUri" value="http://remote.test/"/>
+                <property name="serviceName" value="PublicWS"/>
+                <property name="portName" value="PublicWebServiceEndpointPort"/>
+                <property name="lookupServiceOnStartup" value="false"/>
+                <property name="webServiceFeatures">
+                    <array>
+                        <bean class="com.sun.xml.internal.ws.api.fastinfoset.FastInfosetFeature"/>
+                    </array>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+</beans>
