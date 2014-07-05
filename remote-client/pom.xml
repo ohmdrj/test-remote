@@ -73,24 +73,16 @@
             <artifactId>FastInfoset</artifactId>
         </dependency>
 
-        <!--<dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-api</artifactId>
-            <version>2.7.10</version>
-            <scope>compile</scope>
-        </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
-            <version>2.7.10</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http</artifactId>
-            <version>2.7.10</version>
             <scope>compile</scope>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>

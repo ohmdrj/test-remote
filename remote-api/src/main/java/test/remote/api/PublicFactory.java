@@ -5,7 +5,6 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -22,15 +21,14 @@ public class PublicFactory {
 
     public PublicFactory() {
         for (int i = 1; i < 100; i++) {
-            exampleSimple.add(newPublicVO(1000l + i, "Datovy Test " + i, 10, 100));
+            exampleSimple.add(newPublicVO((long) i, "Datovy Test " + i, 10, 10));
         }
-
         try {
             imageData = IOUtils.toByteArray(getClass().getResourceAsStream("/freeski.jpg"));
-            exampleComplex.add(newPublicVO(1l, "Prvni Obrazek", imageData));
-            //exampleComplex.add(newPublicVO(2l, "Druhy Obrazek", imageData));
-            //\exampleComplex.add(newPublicVO(3l, "treti Obrazek", imageData));
-            exampleComplex.addAll(exampleSimple);
+            exampleComplex.add(newPublicVO(0l, "Prvni Obrazek", imageData));
+            for (int i = 1; i < 100; i++) {
+                exampleSimple.add(newPublicVO((long) i, "Datovy Test " + i, 10, 100));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

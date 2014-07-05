@@ -7,7 +7,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import test.remote.AppControler;
 import test.remote.PublicWebClient;
-import test.remote.api.PublicService;
 
 import java.util.Arrays;
 
@@ -31,16 +30,12 @@ public class UserInterface extends UI {
 
         VerticalLayout options = new VerticalLayout();
         HorizontalLayout cases = new HorizontalLayout();
-
+        options.addComponent(new TextField("Server url", appControler().getServerUrl()));
         options.addComponent(new ComboBox("System enviroment ",Arrays.asList(new String[]{
-                "os Linux | jdk 6 | lo",
-                "os Linux | jdk 7 | lo",
-                "os Linux | jdk 6 | lan",
-                "os Linux | jdk 7 | lan",
-                "os Windows | jdk 6 | lo",
-                "os Windows | jdk 7 | lo",
-                "os Windows | jdk 6 | lan",
-                "os Windows | jdk 7 | lan"
+                "Linux | JDK 6",
+                "Linux | JDK 7",
+                "Windows | JDK 6",
+                "Windows | JDK 7"
         })));
         optionBinary = new CheckBox("Binary payload",true);
         options.addComponent(optionBinary);
@@ -51,7 +46,19 @@ public class UserInterface extends UI {
                 appControler().getPublicInvokerClient().transferPull(optionBinary.getValue());
             }
         }));
-        cases.addComponent(new TestCase("Jax-WS Binary", new TestCase.Executor() {
+        cases.addComponent(new TestCase("Apache-CXF", new TestCase.Executor() {
+            @Override
+            public void doExecute() throws Exception {
+                appControler().getPublicApacxfClient().transferPull(optionBinary.getValue());
+            }
+        }));
+        cases.addComponent(new TestCase("Jax-WS", new TestCase.Executor() {
+            @Override
+            public void doExecute() throws Exception {
+                appControler().getPublicJaxwsClient().transferPull(optionBinary.getValue());
+            }
+        }));
+        /*cases.addComponent(new TestCase("Jax-WS Binary", new TestCase.Executor() {
             @Override
             public void doExecute() throws Exception {
                 PublicService jaxwsBinary = appControler().getPublicJaxwsBinary();
@@ -59,18 +66,12 @@ public class UserInterface extends UI {
                     jaxwsBinary.transferPull(optionBinary.getValue());
             }
         }));
-        cases.addComponent(new TestCase("Jax-WS Normal", new TestCase.Executor() {
-            @Override
-            public void doExecute() throws Exception {
-                appControler().getPublicJaxwsClient().transferPull(optionBinary.getValue());
-            }
-        }));
         cases.addComponent(new TestCase("Jax-WS Mapping WO", new TestCase.Executor() {
             @Override
             public void doExecute() throws Exception {
                 appControler().getPublicWebClient().transferPull(optionBinary.getValue());
             }
-        }));
+        }));*/
 
 
         final HorizontalLayout devel = new HorizontalLayout();
@@ -93,7 +94,7 @@ public class UserInterface extends UI {
         root.setMargin(true);
         root.addComponent(options);
         root.addComponent(cases);
-        root.addComponent(devel);
+        //root.addComponent(devel);
         setContent(root);
     }
 

@@ -1,9 +1,6 @@
 package test.remote.web;
 
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.ProgressBar;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import com.vaadin.ui.themes.Reindeer;
 
 import java.util.ArrayList;
@@ -18,13 +15,13 @@ import java.util.List;
 public class TestCase extends VerticalLayout {
 
     private Executor executor;
-    private com.vaadin.ui.Label infoResult;
+    private TextField infoResult;
     private ProgressBar progressBar;
-    private List<Long> timesResult = new ArrayList<Long>();
+    private List<Long> timesResult;
 
     public TestCase(String name, Executor toexec) {
         executor = toexec;
-        infoResult = new Label("n/a");
+        infoResult = new TextField("Test time [ms]");
         progressBar = new ProgressBar();
 
 
@@ -34,10 +31,19 @@ public class TestCase extends VerticalLayout {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 try {
-                    long t = System.currentTimeMillis();
+                    timesResult = new ArrayList<Long>();
+                    //if (timesResult == null) {
+                    //}
+                    //Initial connect
                     executor.doExecute();
-                    long td = System.currentTimeMillis() - t;
-                    addTimeResult(td);
+                    Thread.sleep(500);
+                    for (int i = 0; i < 14; i++) {
+                        long t = System.currentTimeMillis();
+                        executor.doExecute();
+                        long td = System.currentTimeMillis() - t;
+                        addTimeResult(td);
+                        Thread.sleep(100);
+                    }
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     infoResult.setValue("Exception: " + ex.getMessage());
@@ -48,6 +54,7 @@ public class TestCase extends VerticalLayout {
         addComponent(buttonExec);
         addComponent(progressBar);
         addComponent(infoResult);
+        //addComponent(new TextField("Network size [MB]", ""));
 
         infoTest.addStyleName(Reindeer.LABEL_H2);
         setSizeUndefined();
@@ -68,7 +75,9 @@ public class TestCase extends VerticalLayout {
             time = Math.round(time / (double) times.size());
             average = true;
         }
-        infoResult.setValue((average?"Average":"Test")+" in " + time + "ms");
+        progressBar.setValue(time / 1000f);
+        infoResult.setCaption((average ? "Average time [ms]" : "Test time [ms]"));
+        infoResult.setValue(time.toString());
     }
 
     public static interface Executor {

@@ -1,7 +1,6 @@
 package test.remote;
 
 import com.sun.xml.internal.ws.api.fastinfoset.FastInfosetFeature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean;
 import test.remote.api.PublicService;
 
@@ -14,14 +13,12 @@ import java.net.URL;
  */
 public class AppControler {
 
-    @Autowired
     PublicService publicInvokerClient;
-    @Autowired
+    PublicService publicApacxfClient;
     PublicService publicJaxwsClient;
-    @Autowired
     PublicWebClient publicWebClient;
-    //Manual
     PublicService publicJaxwsBinary;
+    String serverUrl;
 
     @PostConstruct
     public void init() {
@@ -38,12 +35,32 @@ public class AppControler {
         return publicInvokerClient;
     }
 
+    public void setPublicInvokerClient(PublicService publicInvokerClient) {
+        this.publicInvokerClient = publicInvokerClient;
+    }
+
+    public PublicService getPublicApacxfClient() {
+        return publicApacxfClient;
+    }
+
+    public void setPublicApacxfClient(PublicService publicApacxfClient) {
+        this.publicApacxfClient = publicApacxfClient;
+    }
+
     public PublicService getPublicJaxwsClient() {
         return publicJaxwsClient;
     }
 
+    public void setPublicJaxwsClient(PublicService publicJaxwsClient) {
+        this.publicJaxwsClient = publicJaxwsClient;
+    }
+
     public PublicWebClient getPublicWebClient() {
         return publicWebClient;
+    }
+
+    public void setPublicWebClient(PublicWebClient publicWebClient) {
+        this.publicWebClient = publicWebClient;
     }
 
     public PublicService getPublicJaxwsBinary() {
@@ -68,4 +85,13 @@ public class AppControler {
         }
         return publicJaxwsBinary;
     }
+
+    public void setServerUrl(String serverUrl) {
+        this.serverUrl = serverUrl;
+    }
+
+    public String getServerUrl() {
+        return serverUrl;
+    }
+
 }

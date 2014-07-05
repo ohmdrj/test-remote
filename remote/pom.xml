@@ -84,27 +84,24 @@
             <dependency>
                 <groupId>com.sun.xml.fastinfoset</groupId>
                 <artifactId>FastInfoset</artifactId>
-                <version>1.2.7</version>
+                <version>1.2.13</version>
             </dependency>
 
-            <!--<dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-api</artifactId>
-                <version>2.7.10</version>
-                <scope>compile</scope>
-            </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-frontend-jaxws</artifactId>
                 <version>2.7.10</version>
-                <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-transports-http</artifactId>
                 <version>2.7.10</version>
-                <scope>compile</scope>
-            </dependency>-->
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                <version>2.7.10</version>
+            </dependency>
 
 
             <dependency>

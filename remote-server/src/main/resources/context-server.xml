@@ -35,8 +35,7 @@
     </bean>-->
 
     <!--== APACXF Server ==-->
-
-
+    <import resource="context-export-apacxf.xml"/>
 
     <!--== JAXWS Server ==-->
     <bean class="org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter">
